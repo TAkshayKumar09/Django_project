@@ -75,6 +75,15 @@ def delete_user(req):
 
 
 
+
+@csrf_exempt
+def get_menu(req):
+    data=fooditems.objects.all().values()
+
+    list_data= list(data)
+    return JsonResponse(list_data, safe=False)
+
+
 @csrf_exempt
 def createmenu(req):
     name=req.POST.get("name")
