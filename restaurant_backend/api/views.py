@@ -31,12 +31,12 @@ def login(req):
 
             is_same=bcrypt.checkpw(password.encode('utf-8'), stored_hash.encode('utf-8'))
             if is_same:
-                return HttpResponse("Login Successfully")
+                return HttpResponse("Login Successfully", status=200)
             else:
-                return HttpResponse('Invalid Credentials')
+                return HttpResponse('Invalid Credentials', status=400)
         
         except users.DoesNotExist:
-            return HttpResponse("Invalid Credentials")
+            return HttpResponse("Invalid Credentials", status=400)
     return HttpResponse("Invalid Request Method", status=405)
 
 
