@@ -25,18 +25,19 @@ def login(req):
         email=req.POST.get('email')
         password=req.POST.get('password')
 
-    try:
-        check=users.objects.get(email=email) 
-        stored_hash=check.password
+        try:
+            check=users.objects.get(email=email) 
+            stored_hash=check.password
 
-        is_same=bcrypt.checkpw(password.encode('utf-8'), stored_hash.encode('utf-8'))
-        if is_same:
-            return HttpResponse("Login Successfully")
-        else:
-            return HttpResponse('Invalid Credentials')
+            is_same=bcrypt.checkpw(password.encode('utf-8'), stored_hash.encode('utf-8'))
+            if is_same:
+                return HttpResponse("Login Successfully")
+            else:
+                return HttpResponse('Invalid Credentials')
         
-    except users.DoesNotExist:
-        return HttpResponse("Invalid Credentials")
+        except users.DoesNotExist:
+            return HttpResponse("Invalid Credentials")
+    return HttpResponse("Invalid Request Method", status=405)
 
 
 
